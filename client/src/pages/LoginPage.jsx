@@ -11,8 +11,11 @@ function LoginPage(){
     async function handleloginSubmit(ev){
         ev.preventDefault();
         try{
-            const userInfo = await axios.post('/login',{email,password});
-            setUser(userInfo);
+            const {data} = await axios.post('/login',{email,password});
+            console.log(email);
+            console.log(password);
+
+            setUser(data);
             alert("Login Successful");
             setRedirect(true);
         }catch(e){
@@ -36,7 +39,7 @@ function LoginPage(){
                 placeholder="Password"
                 value={password}
                 onChange={ev=>setPassword(ev.target.value)} />
-                <button className="login">Login</button>
+                <button className="secondary">Login</button>
                 <div className="text-center py-2 text-gray-500">
                     Don't have an account yet? <Link className="underline text-black" to={'/register'}>Register Now</Link>
                 </div>
