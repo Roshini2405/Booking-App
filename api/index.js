@@ -82,27 +82,41 @@ app.post('/logout',(req,res)=>{
     res.cookie('token', '').json(true);
 });
 
-app.post('/upload-by-link', async (req,res)=>{
-    const {link} = req.body;
-    const newName = 'photo' + Date.now()+'.jpg';
-    await imageDownloader.image({
-        url: link,
-        dest: __dirname+'/uploads/'+newName,
-    });
-    res.json(newName);
-})
+app.post('/upload-by-link', async (req, res) => {
+    const { link } = req.body;
+    const newName = 'photo' + Date.now() + '.jpg';
+    const dest = __dirname + '/uploads/' + newName;
+
+    try {
+        await imageDownloader.image({
+            url: link,
+            dest: dest,
+        });
+        res.json(newName);
+    } catch (error) {
+        console.error('Image download failed:', error);
+        res.status(500).json({ error: 'Failed to download image' });
+    }
+});
+
 
 const photosMiddleware = multer({dest:'uploads/'});
-app.post('/upload', photosMiddleware.array('photos', 100),(req,res) => {
+app.post('/upload', photosMiddleware.array('photos', 100), (req, res) => {
     const uploadedFiles = [];
-    for (let i=0; i < req.files.length; i++){
-        const {path, originalname} = req.files[i];
+    for (let i = 0; i < req.files.length; i++) {
+        const { path, originalname } = req.files[i];
         const parts = originalname.split('.');
         const ext = parts[parts.length - 1];
         const newPath = path + '.' + ext;
-        fs.renameSync(path, newPath);
-        uploadedFiles.push(newPath.replace('uploads/',''));
+        
+        try {
+            fs.renameSync(path, newPath); // Rename the file with the correct extension
+            uploadedFiles.push(newPath.replace(/\\/g, '/').replace('uploads/', ''));
+        } catch (err) {
+            console.error("Error renaming file:", err);
+        }
     }
     res.json(uploadedFiles);
 });
+
 app.listen(4000);
