@@ -107,24 +107,24 @@ function PlacesFormPage(){
                         {preInput('Check in&out times','add check in and out times, remember to have some time window for cleaning the room between guests')}
                         <div className="grid gap-2 sm:grid-cols-3">
                             <div>
-                            <h3 className="mt-2 -mb-1">Check in time</h3>
-                            <input type="text" 
-                            value={checkIn} 
-                            onChange={ev => setCheckIn(ev.target.value)}
-                            placeholder="14" />
+                              <h3 className="mt-2 -mb-1">Check in time</h3>
+                              <input type="text" 
+                                     value={checkIn} 
+                                     onChange={ev => setCheckIn(ev.target.value)}
+                                     placeholder="14" />
                             </div>
                             <div>
-                            <h3 className="mt-2 -mb-1">Check out time</h3>
-                            <input type="text" 
-                            value={checkOut} 
-                            onChange={ev => setCheckOut(ev.target.value)}
-                            placeholder="11" />
+                              <h3 className="mt-2 -mb-1">Check out time</h3>
+                              <input type="text" 
+                                     value={checkOut} 
+                                     onChange={ev => setCheckOut(ev.target.value)}
+                                     placeholder="11" />
                             </div>
                             <div>
-                            <h3 className="mt-2 -mb-1">Max number of guests</h3>
-                            <input type="number"
-                            value={maxGuests} 
-                            onChange={ev => setMaxGuests(ev.target.value)} />
+                              <h3 className="mt-2 -mb-1">Max number of guests</h3>
+                              <input type="number"
+                                     value={maxGuests} 
+                                     onChange={ev => setMaxGuests(ev.target.value)} />
                             </div>
                         </div>
                             <button className="primary my-4">Save</button>
