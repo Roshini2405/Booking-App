@@ -13,7 +13,7 @@ function RegisterPage(){
             email,
             password,
         });
-        alert('Successfully Registered');
+        alert('Successfully Registered.Please login to continue');
     }catch(e){
         alert('Registration Failed.Please try again later');
     }
