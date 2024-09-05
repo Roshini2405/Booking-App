@@ -19,3 +19,6 @@ button.secondary{
 button.primary{
     @apply bg-primary p-2 w-full rounded-full;
 }
+button{
+    @apply bg-gray-300;
+}
