@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "image-downloader": "^4.3.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
   }
 }
