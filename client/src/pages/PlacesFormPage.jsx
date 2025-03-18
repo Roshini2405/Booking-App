@@ -130,7 +130,7 @@ function PlacesFormPage(){
                                      onChange={ev => setMaxGuests(ev.target.value)} />
                             </div>
                             <div>
-                              <h3 className="mt-2 -mb-1">Price per night</h3>
+                              <h3 className="mt-2 -mb-1">Price per day</h3>
                               <input type="number"
                                      value={price} 
                                      onChange={ev => setPrice(ev.target.value)} />

@@ -39,7 +39,7 @@ export default function BookingWidget({place}){
     return(
         <div className="bg-white shadow p-4 rounded-2xl">
         <div className="text-2xl text-center">
-           Price: Rs{place.price} / per night
+           Price: Rs{place.price} / per day
         </div>
         <div className="border rounded-2xl mt-4">
             <div className="flex">
