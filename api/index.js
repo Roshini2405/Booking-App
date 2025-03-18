@@ -76,18 +76,29 @@ app.post('/login',async (req,res)=>{
     }
 });
 
-app.get('/profile',(req,res)=>{
-    const {token} = req.cookies;
-    if(token){
-        jwt.verify(token,jwtSecret,{},async (err,userData)=>{
-         if(err) throw err;
-         const {name,email,_id}  = await User.findById(userData.id)
-         res.json({name,email,_id});
-        })
-    }else{
-        res.json(null);
-    }
+app.get('/profile', async (req, res) => {
+    const { token } = req.cookies;
+    if (!token) return res.json(null);
+
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+        if (err) {
+            console.error("JWT Verification Error:", err);
+            return res.status(401).json({ error: 'Invalid token' });
+        }
+
+        try {
+            const user = await User.findById(userData.id);
+            if (!user) {
+                return res.status(404).json({ error: "User not found" });
+            }
+            res.json({ name: user.name, email: user.email, _id: user._id });
+        } catch (dbError) {
+            console.error("Database Error:", dbError);
+            res.status(500).json({ error: "Database query failed" });
+        }
+    });
 });
+
 
 app.post('/logout',(req,res)=>{
     res.cookie('token', '').json(true);
